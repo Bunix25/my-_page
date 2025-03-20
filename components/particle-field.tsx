@@ -43,21 +43,21 @@ const ParticleField = () => {
       color: string
 
       constructor() {
-        this.x = Math.random() * canvas.width
-        this.y = Math.random() * canvas.height
-        this.size = Math.random() * 3 + 1
+        this.x = Math.random() * (canvas?.width || window.innerWidth)
+        this.y = Math.random() * (canvas?.height || window.innerHeight)
+        this.size = Math.random() * 15 + 8
         this.speedX = Math.random() * 1 - 0.5
         this.speedY = Math.random() * 1 - 0.5
 
         // Green/cyan color palette
         const colors = [
-          "rgba(142, 255, 170, 0.7)",
-          "rgba(0, 255, 255, 0.7)",
-          "rgba(255, 100, 200, 0.7)", // Pink
-          "rgba(190, 120, 255, 0.7)", // Purple
-          "rgba(80, 170, 255, 0.7)", // Blue
-          "rgba(255, 200, 70, 0.7)", // Yellow
-          "rgba(255, 140, 50, 0.7)", // Orange
+          "rgba(142, 255, 170, 1)",
+          "rgba(0, 255, 255, 1)",
+          "rgba(255, 100, 200, 1)", // Pink
+          "rgba(190, 120, 255, 1)", // Purple
+          "rgba(80, 170, 255, 1)", // Blue
+          "rgba(255, 200, 70, 1)", // Yellow
+          "rgba(255, 140, 50, 1)", // Orange
         ]
 
         this.color = colors[Math.floor(Math.random() * colors.length)]
@@ -68,10 +68,10 @@ const ParticleField = () => {
         this.y += this.speedY
 
         // Boundary check
-        if (this.x > canvas.width) this.x = 0
-        else if (this.x < 0) this.x = canvas.width
-        if (this.y > canvas.height) this.y = 0
-        else if (this.y < 0) this.y = canvas.height
+        if (this.x > (canvas?.width || window.innerWidth)) this.x = 0
+        else if (this.x < 0) this.x = (canvas?.width || window.innerWidth)
+        if (this.y > (canvas?.height || window.innerHeight)) this.y = 0
+        else if (this.y < 0) this.y = (canvas?.height || window.innerHeight)
 
         // Mouse interaction
         const dx = this.x - mousePosition.current.x
@@ -101,7 +101,7 @@ const ParticleField = () => {
 
     // Create particles
     const particles: Particle[] = []
-    const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 20000))
+    const particleCount = Math.min(100, Math.floor((canvas.width * canvas.height) / 30000))
 
     for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle())
@@ -119,7 +119,7 @@ const ParticleField = () => {
 
       // Draw connections
       // Create a gradient for the connections
-      ctx.lineWidth = 0.5
+      ctx.lineWidth = 5
 
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
@@ -127,7 +127,7 @@ const ParticleField = () => {
           const dy = particles[i].y - particles[j].y
           const distance = Math.sqrt(dx * dx + dy * dy)
 
-          if (distance < 150) {
+          if (distance < 300) {
             const gradient = ctx.createLinearGradient(particles[i].x, particles[i].y, particles[j].x, particles[j].y)
             gradient.addColorStop(0, particles[i].color)
             gradient.addColorStop(1, particles[j].color)
