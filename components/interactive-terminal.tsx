@@ -84,49 +84,41 @@ const InteractiveTerminal = () => {
           <div className="w-3 h-3 rounded-full bg-yellow-500" />
           <div className="w-3 h-3 rounded-full bg-green-500" />
         </div>
-        <div className="text-white/70 text-sm font-mono mx-auto">slava@portfolio ~ </div>
+        <div className="text-white text-sm font-mono mx-auto">slava@portfolio ~ </div>
       </div>
 
       {/* Terminal content */}
       <div
         ref={terminalRef}
-        className="h-[300px] overflow-y-auto p-4 font-mono text-sm bg-gradient-to-b from-black/90 to-black/70"
+        className="h-[300px] overflow-y-auto p-4 font-mono text-sm bg-black"
         onClick={focusInput}
       >
         {history.map((item, index) => (
           <div
             key={index}
-            className={`mb-2 ${
-              item.type === "command"
-                ? "text-accent-cyan"
-                : item.text.includes("Available commands")
-                  ? "text-accent-yellow"
-                  : item.text.includes("Command not found")
-                    ? "text-accent-pink"
-                    : "text-white/90"
-            }`}
+            className="mb-2 font-bold text-white"
           >
             {item.text.split("\n").map((line, i) => (
               <div key={i}>
                 {line.includes("Frontend:") ? (
                   <span>
-                    Frontend: <span className="text-accent-blue">React</span>,{" "}
-                    <span className="text-accent-cyan">Next.js</span>,{" "}
-                    <span className="text-accent-blue">TypeScript</span>,{" "}
-                    <span className="text-accent">Tailwind CSS</span>
+                    Frontend: <span className="text-white">React</span>,{" "}
+                    <span className="text-white">Next.js</span>,{" "}
+                    <span className="text-white">TypeScript</span>,{" "}
+                    <span className="text-white">Tailwind CSS</span>
                   </span>
                 ) : line.includes("Backend:") ? (
                   <span>
-                    Backend: <span className="text-accent-green">Node.js</span>,{" "}
-                    <span className="text-accent-yellow">Express</span>,{" "}
-                    <span className="text-accent-pink">GraphQL</span>,{" "}
-                    <span className="text-accent-green">MongoDB</span>
+                    Backend: <span className="text-white">Node.js</span>,{" "}
+                    <span className="text-white">Express</span>,{" "}
+                    <span className="text-white">GraphQL</span>,{" "}
+                    <span className="text-white">MongoDB</span>
                   </span>
                 ) : line.includes("Other:") ? (
                   <span>
                     Other: <span className="text-white">Three.js</span>,{" "}
-                    <span className="text-accent-blue">Framer Motion</span>,{" "}
-                    <span className="text-accent-cyan">Docker</span>, <span className="text-accent-orange">AWS</span>
+                    <span className="text-white">Framer Motion</span>,{" "}
+                    <span className="text-white">Docker</span>, <span className="text-white">AWS</span>
                   </span>
                 ) : (
                   line
@@ -137,13 +129,13 @@ const InteractiveTerminal = () => {
         ))}
 
         <form onSubmit={handleSubmit} className="flex items-center">
-          <span className="text-accent-cyan mr-2">{">"}</span>
+          <span className="text-white mr-2">{">"}</span>
           <input
             ref={inputRef}
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="flex-1 bg-transparent outline-none text-white/90"
+            className="flex-1 bg-transparent outline-none text-white"
             autoFocus
           />
         </form>
