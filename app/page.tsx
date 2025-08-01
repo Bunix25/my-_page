@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Download, Code, Sparkles } from "lucide-react"
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import Link from "next/link"
 
 // Components
 import Social from "@/components/social"
@@ -227,14 +228,16 @@ const Home = () => {
                   whileHover={{ scale: 1.05 }}
                   className="relative group"
                 >
-                  <Button
-                    variant="default"
-                    size="lg"
-                    className="bg-gradient-to-r from-accent-pink via-accent to-accent-blue hover:from-accent-pink/90 hover:via-accent/90 hover:to-accent-blue/90 border-0 gap-2 text-white transition-all duration-300 h-14 px-8 rounded-xl shadow-lg shadow-accent-pink/20"
-                  >
-                    <span className="font-medium">View Projects</span>
-                    <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
+                  <Link href="/projects">
+                    <Button
+                      variant="default"
+                      size="lg"
+                      className="bg-gradient-to-r from-accent-pink via-accent to-accent-blue hover:from-accent-pink/90 hover:via-accent/90 hover:to-accent-blue/90 border-0 gap-2 text-white transition-all duration-300 h-14 px-8 rounded-xl shadow-lg shadow-accent-pink/20"
+                    >
+                      <span className="font-medium">View Projects</span>
+                      <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
 
                   {/* Button glow effect */}
                   <motion.div
