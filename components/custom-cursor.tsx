@@ -1,9 +1,13 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 const CustomCursor = () => {
+  const [isClient, setIsClient] = useState(false)
+
   useEffect(() => {
+    setIsClient(true)
+    
     // Ensure default cursor is visible by removing any 'cursor: none' styles
     document.documentElement.style.cursor = 'auto'
     document.body.style.cursor = 'auto'
@@ -18,6 +22,11 @@ const CustomCursor = () => {
       // Cleanup not needed as we want the cursor to remain visible
     }
   }, [])
+  
+  // Only render on client side to prevent hydration mismatch
+  if (!isClient) {
+    return null
+  }
   
   return null
 }
