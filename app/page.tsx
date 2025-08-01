@@ -30,6 +30,19 @@ const Home = () => {
   const skillsScale = useTransform(scrollYProgress, [0.2, 0.4], [0.8, 1])
   const terminalOpacity = useTransform(scrollYProgress, [0.5, 0.7], [0, 1])
 
+  // Scroll to top on page load/refresh
+  useEffect(() => {
+    // Scroll to top immediately
+    window.scrollTo(0, 0)
+    
+    // Also scroll to top after a brief delay to ensure it takes effect
+    const timer = setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 100)
+    
+    return () => clearTimeout(timer)
+  }, [])
+
   // Detect mobile device
   useEffect(() => {
     const checkMobile = () => {
