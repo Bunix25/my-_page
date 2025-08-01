@@ -2,7 +2,7 @@
 
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowLeft, ExternalLink, Github, Play, Code, Star, Zap, Eye } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Github, Play, Code, Star, Zap, Eye, Menu, X } from 'lucide-react'
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring, useInView } from 'framer-motion'
 import { useEffect, useState, useRef } from 'react'
 
@@ -89,7 +89,7 @@ const projects = [
 
 // Particle System Component
 const ParticleSystem = () => {
-  const particles = Array.from({ length: 30 }, (_, i) => ({
+  const particles = Array.from({ length: 20 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
@@ -128,7 +128,7 @@ const ParticleSystem = () => {
 const FloatingElements = () => {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      {Array.from({ length: 6 }, (_, i) => (
+      {Array.from({ length: 4 }, (_, i) => (
         <motion.div
           key={i}
           className="absolute w-2 h-2 bg-gradient-to-r from-accent-pink/30 to-accent-blue/30 rounded-full"
@@ -179,8 +179,8 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
       const centerX = rect.width / 2
       const centerY = rect.height / 2
       
-      rotateX.set((mousePosition.y - centerY) / 15)
-      rotateY.set((mousePosition.x - centerX) / 15)
+      rotateX.set((mousePosition.y - centerY) / 20)
+      rotateY.set((mousePosition.x - centerX) / 20)
     } else {
       rotateX.set(0)
       rotateY.set(0)
@@ -238,7 +238,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
           />
 
           {/* Project Image/Placeholder */}
-          <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+          <div className="relative h-40 md:h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
             <motion.div
               className="absolute inset-0 bg-gradient-to-br from-accent-pink/20 via-accent/20 to-accent-blue/20"
               animate={{
@@ -255,7 +255,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
             {/* Floating Icons */}
             <div className="absolute inset-0 flex items-center justify-center">
               <motion.div
-                className="text-6xl text-accent/20"
+                className="text-4xl md:text-6xl text-accent/20"
                 animate={{
                   rotate: [0, 360],
                 }}
@@ -270,15 +270,15 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
             </div>
 
             {/* Category Badge */}
-            <div className="absolute top-4 left-4">
-              <span className="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full border border-accent/30 backdrop-blur-sm font-medium">
+            <div className="absolute top-3 left-3 md:top-4 md:left-4">
+              <span className="px-2 md:px-3 py-1 bg-accent/20 text-accent text-xs rounded-full border border-accent/30 backdrop-blur-sm font-medium">
                 {project.category}
               </span>
             </div>
 
             {/* Difficulty Badge */}
-            <div className="absolute top-4 right-4">
-              <span className={`px-3 py-1 text-xs rounded-full border backdrop-blur-sm font-medium ${
+            <div className="absolute top-3 right-3 md:top-4 md:right-4">
+              <span className={`px-2 md:px-3 py-1 text-xs rounded-full border backdrop-blur-sm font-medium ${
                 project.difficulty === 'Advanced' 
                   ? 'bg-red-500/20 text-red-600 border-red-500/30'
                   : 'bg-green-500/20 text-green-600 border-green-500/30'
@@ -289,21 +289,21 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
           </div>
 
           {/* Content */}
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <motion.h3 
-              className="text-xl font-bold mb-3 text-gray-900 group-hover:text-accent transition-colors duration-300"
+              className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-gray-900 group-hover:text-accent transition-colors duration-300"
               animate={isHovered ? { scale: 1.02 } : { scale: 1 }}
             >
               {project.title}
             </motion.h3>
             
-            <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+            <p className="text-gray-600 text-sm mb-3 md:mb-4 line-clamp-2 md:line-clamp-3">
               {project.description}
             </p>
 
             {/* Technologies */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.technologies.map((tech: string, techIndex: number) => (
+            <div className="flex flex-wrap gap-1 md:gap-2 mb-3 md:mb-4">
+              {project.technologies.slice(0, 4).map((tech: string, techIndex: number) => (
                 <motion.span
                   key={tech}
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -314,11 +314,16 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
                   {tech}
                 </motion.span>
               ))}
+              {project.technologies.length > 4 && (
+                <span className="px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded border border-gray-200">
+                  +{project.technologies.length - 4}
+                </span>
+              )}
             </div>
 
             {/* Stats */}
-            <div className="flex items-center justify-between mb-4 text-xs text-gray-500">
-              <div className="flex items-center space-x-4">
+            <div className="flex items-center justify-between mb-3 md:mb-4 text-xs text-gray-500">
+              <div className="flex items-center space-x-2 md:space-x-4">
                 <div className="flex items-center space-x-1">
                   <Star className="w-3 h-3" />
                   <span>{project.stats.stars}</span>
@@ -330,15 +335,15 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
               </div>
               <div className="flex items-center space-x-1">
                 <Zap className="w-3 h-3" />
-                <span>{project.difficulty}</span>
+                <span className="hidden sm:inline">{project.difficulty}</span>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex space-x-3">
+            <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
               <motion.a
                 href={project.liveUrl}
-                className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-accent-pink via-accent to-accent-blue hover:from-accent-pink/90 hover:via-accent/90 hover:to-accent-blue/90 rounded-lg transition-all duration-200 text-sm font-medium text-white shadow-lg"
+                className="flex items-center justify-center space-x-2 px-3 md:px-4 py-2 bg-gradient-to-r from-accent-pink via-accent to-accent-blue hover:from-accent-pink/90 hover:via-accent/90 hover:to-accent-blue/90 rounded-lg transition-all duration-200 text-sm font-medium text-white shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -347,7 +352,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
               </motion.a>
               <motion.a
                 href={project.githubUrl}
-                className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 text-sm font-medium text-gray-700 border border-gray-200"
+                className="flex items-center justify-center space-x-2 px-3 md:px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 text-sm font-medium text-gray-700 border border-gray-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -378,6 +383,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
 export default function ProjectsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchTerm, setSearchTerm] = useState('')
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
   const containerRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -462,7 +468,7 @@ export default function ProjectsPage() {
       />
 
       {/* Header */}
-      <header className="relative z-10 container mx-auto px-6 py-8">
+      <header className="relative z-10 container mx-auto px-4 md:px-6 py-6 md:py-8">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -479,11 +485,11 @@ export default function ProjectsPage() {
             >
               <ArrowLeft className="w-5 h-5" />
             </motion.div>
-            <span>Back to Home</span>
+            <span className="hidden sm:inline">Back to Home</span>
           </Link>
           
           <motion.h1 
-            className="text-4xl font-bold bg-gradient-to-r from-accent-pink via-accent to-accent-blue bg-clip-text text-transparent"
+            className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-accent-pink via-accent to-accent-blue bg-clip-text text-transparent"
             style={{ y: textY }}
           >
             My Projects
@@ -496,11 +502,11 @@ export default function ProjectsPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="container mx-auto px-6 mb-12"
+        className="container mx-auto px-4 md:px-6 mb-8 md:mb-12"
       >
-        <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
+        <div className="flex flex-col gap-4 md:gap-6">
           {/* Search Bar */}
-          <div className="relative w-full lg:w-96">
+          <div className="relative w-full">
             <input
               type="text"
               placeholder="Search projects..."
@@ -517,45 +523,75 @@ export default function ProjectsPage() {
             />
           </div>
 
-          {/* Category Filter */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <motion.button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  selectedCategory === category
-                    ? 'bg-gradient-to-r from-accent-pink via-accent to-accent-blue text-white shadow-lg'
-                    : 'bg-white/80 text-gray-700 hover:bg-white border border-gray-200 shadow-sm'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+          {/* Mobile Filter Toggle */}
+          <div className="md:hidden">
+            <motion.button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className="w-full px-4 py-3 bg-white/80 border border-gray-200 rounded-lg text-gray-700 font-medium flex items-center justify-between"
+              whileTap={{ scale: 0.98 }}
+            >
+              <span>Filter: {selectedCategory}</span>
+              <motion.div
+                animate={{ rotate: isFilterOpen ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
               >
-                {category}
-              </motion.button>
-            ))}
+                ▼
+              </motion.div>
+            </motion.button>
           </div>
+
+          {/* Category Filter */}
+          <AnimatePresence>
+            {(isFilterOpen || window.innerWidth >= 768) && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-wrap gap-2"
+              >
+                {categories.map((category) => (
+                  <motion.button
+                    key={category}
+                    onClick={() => {
+                      setSelectedCategory(category)
+                      setIsFilterOpen(false)
+                    }}
+                    className={`px-3 md:px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      selectedCategory === category
+                        ? 'bg-gradient-to-r from-accent-pink via-accent to-accent-blue text-white shadow-lg'
+                        : 'bg-white/80 text-gray-700 hover:bg-white border border-gray-200 shadow-sm'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {category}
+                  </motion.button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </motion.section>
 
       {/* Projects Grid */}
-      <main className="container mx-auto px-6 pb-16">
+      <main className="container mx-auto px-4 md:px-6 pb-16">
         {/* Featured Projects */}
         <motion.section
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-16"
+          className="mb-12 md:mb-16"
         >
           <motion.h2 
-            className="text-2xl font-semibold mb-8 text-gray-900"
+            className="text-xl md:text-2xl font-semibold mb-6 md:mb-8 text-gray-900"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             Featured Projects
           </motion.h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
             {filteredProjects.filter(p => p.featured).map((project, index) => (
               <ProjectCard key={project.id} project={project} index={index} />
             ))}
@@ -569,7 +605,7 @@ export default function ProjectsPage() {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <motion.h2 
-            className="text-2xl font-semibold mb-8 text-gray-900"
+            className="text-xl md:text-2xl font-semibold mb-6 md:mb-8 text-gray-900"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
