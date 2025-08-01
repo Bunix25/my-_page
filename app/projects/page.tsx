@@ -89,11 +89,11 @@ const projects = [
 
 // Particle System Component
 const ParticleSystem = () => {
-  const particles = Array.from({ length: 50 }, (_, i) => ({
+  const particles = Array.from({ length: 30 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
+    size: Math.random() * 2 + 1,
     speed: Math.random() * 2 + 0.5,
   }))
 
@@ -102,7 +102,7 @@ const ParticleSystem = () => {
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute w-1 h-1 bg-blue-400/30 rounded-full"
+          className="absolute w-1 h-1 bg-accent/20 rounded-full"
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,
@@ -111,7 +111,7 @@ const ParticleSystem = () => {
           }}
           animate={{
             y: [0, -100, 0],
-            opacity: [0, 1, 0],
+            opacity: [0, 0.6, 0],
           }}
           transition={{
             duration: particle.speed * 10,
@@ -128,10 +128,10 @@ const ParticleSystem = () => {
 const FloatingElements = () => {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden">
-      {Array.from({ length: 8 }, (_, i) => (
+      {Array.from({ length: 6 }, (_, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20"
+          className="absolute w-2 h-2 bg-gradient-to-r from-accent-pink/30 to-accent-blue/30 rounded-full"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
@@ -179,8 +179,8 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
       const centerX = rect.width / 2
       const centerY = rect.height / 2
       
-      rotateX.set((mousePosition.y - centerY) / 10)
-      rotateY.set((mousePosition.x - centerX) / 10)
+      rotateX.set((mousePosition.y - centerY) / 15)
+      rotateY.set((mousePosition.x - centerX) / 15)
     } else {
       rotateX.set(0)
       rotateY.set(0)
@@ -213,22 +213,21 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
         }}
       >
         {/* Main Card */}
-        <div className="relative bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl overflow-hidden h-full">
+        <div className="relative bg-white/90 backdrop-blur-xl border border-gray-200/50 rounded-2xl overflow-hidden h-full shadow-lg hover:shadow-xl transition-all duration-300">
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-br from-accent-pink/5 via-accent/5 to-accent-blue/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           
           {/* Animated Border */}
           <motion.div
             className="absolute inset-0 rounded-2xl"
             style={{
-              background: 'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.3), transparent)',
+              background: 'linear-gradient(45deg, transparent, rgba(142, 255, 170, 0.3), transparent)',
             }}
             animate={{
               background: [
-                'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.3), transparent)',
-                'linear-gradient(45deg, transparent, rgba(147, 51, 234, 0.3), transparent)',
-                'linear-gradient(45deg, transparent, rgba(236, 72, 153, 0.3), transparent)',
-                'linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.3), transparent)',
+                'linear-gradient(45deg, transparent, rgba(142, 255, 170, 0.3), transparent)',
+                'linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.3), transparent)',
+                'linear-gradient(45deg, transparent, rgba(142, 255, 170, 0.3), transparent)',
               ],
             }}
             transition={{
@@ -239,9 +238,9 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
           />
 
           {/* Project Image/Placeholder */}
-          <div className="relative h-48 bg-gradient-to-br from-gray-700 to-gray-800 overflow-hidden">
+          <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
             <motion.div
-              className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20"
+              className="absolute inset-0 bg-gradient-to-br from-accent-pink/20 via-accent/20 to-accent-blue/20"
               animate={{
                 scale: [1, 1.1, 1],
                 opacity: [0.3, 0.6, 0.3],
@@ -256,7 +255,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
             {/* Floating Icons */}
             <div className="absolute inset-0 flex items-center justify-center">
               <motion.div
-                className="text-6xl text-white/20"
+                className="text-6xl text-accent/20"
                 animate={{
                   rotate: [0, 360],
                 }}
@@ -272,17 +271,17 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
 
             {/* Category Badge */}
             <div className="absolute top-4 left-4">
-              <span className="px-3 py-1 bg-blue-500/20 text-blue-300 text-xs rounded-full border border-blue-500/30 backdrop-blur-sm">
+              <span className="px-3 py-1 bg-accent/20 text-accent text-xs rounded-full border border-accent/30 backdrop-blur-sm font-medium">
                 {project.category}
               </span>
             </div>
 
             {/* Difficulty Badge */}
             <div className="absolute top-4 right-4">
-              <span className={`px-3 py-1 text-xs rounded-full border backdrop-blur-sm ${
+              <span className={`px-3 py-1 text-xs rounded-full border backdrop-blur-sm font-medium ${
                 project.difficulty === 'Advanced' 
-                  ? 'bg-red-500/20 text-red-300 border-red-500/30'
-                  : 'bg-green-500/20 text-green-300 border-green-500/30'
+                  ? 'bg-red-500/20 text-red-600 border-red-500/30'
+                  : 'bg-green-500/20 text-green-600 border-green-500/30'
               }`}>
                 {project.difficulty}
               </span>
@@ -292,13 +291,13 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
           {/* Content */}
           <div className="p-6">
             <motion.h3 
-              className="text-xl font-bold mb-3 text-white group-hover:text-blue-400 transition-colors duration-300"
+              className="text-xl font-bold mb-3 text-gray-900 group-hover:text-accent transition-colors duration-300"
               animate={isHovered ? { scale: 1.02 } : { scale: 1 }}
             >
               {project.title}
             </motion.h3>
             
-            <p className="text-gray-300 text-sm mb-4 line-clamp-3">
+            <p className="text-gray-600 text-sm mb-4 line-clamp-3">
               {project.description}
             </p>
 
@@ -310,7 +309,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: techIndex * 0.1 }}
-                  className="px-2 py-1 bg-gray-700/50 text-gray-300 text-xs rounded border border-gray-600/50 hover:bg-blue-500/20 hover:text-blue-300 hover:border-blue-500/30 transition-all duration-200"
+                  className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded border border-gray-200 hover:bg-accent/20 hover:text-accent hover:border-accent/30 transition-all duration-200 font-medium"
                 >
                   {tech}
                 </motion.span>
@@ -318,7 +317,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
             </div>
 
             {/* Stats */}
-            <div className="flex items-center justify-between mb-4 text-xs text-gray-400">
+            <div className="flex items-center justify-between mb-4 text-xs text-gray-500">
               <div className="flex items-center space-x-4">
                 <div className="flex items-center space-x-1">
                   <Star className="w-3 h-3" />
@@ -339,7 +338,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
             <div className="flex space-x-3">
               <motion.a
                 href={project.liveUrl}
-                className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg transition-all duration-200 text-sm font-medium text-white"
+                className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-accent-pink via-accent to-accent-blue hover:from-accent-pink/90 hover:via-accent/90 hover:to-accent-blue/90 rounded-lg transition-all duration-200 text-sm font-medium text-white shadow-lg"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -348,7 +347,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
               </motion.a>
               <motion.a
                 href={project.githubUrl}
-                className="flex items-center space-x-2 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition-all duration-200 text-sm font-medium text-white"
+                className="flex items-center space-x-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 text-sm font-medium text-gray-700 border border-gray-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -361,7 +360,7 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
 
         {/* Glow Effect */}
         <motion.div
-          className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
+          className="absolute -inset-1 bg-gradient-to-r from-accent-pink/20 via-accent/20 to-accent-blue/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
           animate={{
             scale: [1, 1.1, 1],
           }}
@@ -397,16 +396,70 @@ export default function ProjectsPage() {
   })
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden">
-      {/* Animated Background */}
-      <motion.div
-        className="fixed inset-0 -z-10"
-        style={{ y: backgroundY }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20" />
-        <ParticleSystem />
+    <div ref={containerRef} className="min-h-screen bg-white text-black relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute top-0 left-0 w-full h-full bg-grid-white/[0.02] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,white)]" />
+        <motion.div style={{ opacity: 0.3 }}>
+          <ParticleSystem />
+        </motion.div>
         <FloatingElements />
-      </motion.div>
+      </div>
+
+      {/* Decorative elements */}
+      <div className="fixed top-20 right-10 w-16 h-16 border border-black/10 rounded-full hidden md:block" />
+      <div className="fixed bottom-40 right-20 w-8 h-8 bg-accent/20 rounded-full hidden md:block" />
+      <motion.div
+        className="fixed top-[30%] left-10 w-24 h-24 hidden md:block"
+        animate={{
+          rotate: 360,
+          borderRadius: ["20% 80% 20% 80%", "80% 20% 80% 20%"],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Number.POSITIVE_INFINITY,
+          repeatType: "reverse",
+        }}
+        style={{
+          background: "linear-gradient(45deg, rgba(142, 255, 170, 0.2), rgba(0, 255, 255, 0.1))",
+          boxShadow: "0 0 20px rgba(142, 255, 170, 0.3)",
+          backdropFilter: "blur(10px)",
+        }}
+      />
+      <motion.div
+        className="fixed top-[60%] right-[15%] w-16 h-16 hidden md:block"
+        animate={{
+          rotate: 360,
+          borderRadius: ["30% 70% 70% 30%", "50% 50% 50% 50%", "30% 70% 30% 70%"],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Number.POSITIVE_INFINITY,
+          repeatType: "reverse",
+        }}
+        style={{
+          background: "linear-gradient(45deg, rgba(255, 100, 200, 0.2), rgba(190, 120, 255, 0.1))",
+          boxShadow: "0 0 20px rgba(255, 100, 200, 0.3)",
+          backdropFilter: "blur(10px)",
+        }}
+      />
+      <motion.div
+        className="fixed bottom-[20%] left-[20%] w-20 h-20 hidden md:block"
+        animate={{
+          rotate: -360,
+          borderRadius: ["50% 50% 50% 50%", "60% 40% 30% 70%", "30% 60% 70% 40%"],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Number.POSITIVE_INFINITY,
+          repeatType: "reverse",
+        }}
+        style={{
+          background: "linear-gradient(45deg, rgba(80, 170, 255, 0.2), rgba(255, 200, 70, 0.1))",
+          boxShadow: "0 0 20px rgba(80, 170, 255, 0.3)",
+          backdropFilter: "blur(10px)",
+        }}
+      />
 
       {/* Header */}
       <header className="relative z-10 container mx-auto px-6 py-8">
@@ -418,7 +471,7 @@ export default function ProjectsPage() {
         >
           <Link 
             href="/" 
-            className="group flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200"
+            className="group flex items-center space-x-2 text-gray-600 hover:text-accent transition-colors duration-200"
           >
             <motion.div
               whileHover={{ x: -5 }}
@@ -430,7 +483,7 @@ export default function ProjectsPage() {
           </Link>
           
           <motion.h1 
-            className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
+            className="text-4xl font-bold bg-gradient-to-r from-accent-pink via-accent to-accent-blue bg-clip-text text-transparent"
             style={{ y: textY }}
           >
             My Projects
@@ -453,12 +506,12 @@ export default function ProjectsPage() {
               placeholder="Search projects..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-blue-500/20 backdrop-blur-sm"
+              className="w-full px-4 py-3 bg-white/80 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-accent/50 focus:ring-2 focus:ring-accent/20 backdrop-blur-sm shadow-sm"
             />
             <motion.div
               className="absolute inset-0 rounded-lg border border-transparent"
               animate={{
-                boxShadow: searchTerm ? "0 0 20px rgba(59, 130, 246, 0.3)" : "0 0 0px rgba(59, 130, 246, 0)",
+                boxShadow: searchTerm ? "0 0 20px rgba(142, 255, 170, 0.3)" : "0 0 0px rgba(142, 255, 170, 0)",
               }}
               transition={{ duration: 0.3 }}
             />
@@ -472,8 +525,8 @@ export default function ProjectsPage() {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   selectedCategory === category
-                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
-                    : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 border border-gray-700/50'
+                    ? 'bg-gradient-to-r from-accent-pink via-accent to-accent-blue text-white shadow-lg'
+                    : 'bg-white/80 text-gray-700 hover:bg-white border border-gray-200 shadow-sm'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -495,7 +548,7 @@ export default function ProjectsPage() {
           className="mb-16"
         >
           <motion.h2 
-            className="text-2xl font-semibold mb-8 text-gray-200"
+            className="text-2xl font-semibold mb-8 text-gray-900"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -516,7 +569,7 @@ export default function ProjectsPage() {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <motion.h2 
-            className="text-2xl font-semibold mb-8 text-gray-200"
+            className="text-2xl font-semibold mb-8 text-gray-900"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
